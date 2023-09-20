@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: slack-webhook-url
+  namespace: prometheus
+stringData:
+  url: 'https://hooks.slack.com/services/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'
+---
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: AlertmanagerConfig
+metadata:
+  name: vaccination-system-slack-alerts
+  namespace: prometheus
+  labels:
+    release: kube-prometheus-stack
+spec:
+  route:
+    groupBy:
+      - severity
+      - namespace
+      - alertname
+    groupWait: 30s
+    groupInterval: 5m
+    receiver: "slack-notification"
+    repeatInterval: 12h
+    routes:
+      - receiver: "slack-notification"
+        repeatInterval: 1w
+        matchers:
+          - name: "alertname"
+            value: "RegistrationHighCPUUsage"
+            matchType: "=~"
+  receivers:
+  - name: 'slack-notification'
+    slackConfigs:
+      - sendResolved: true
+        apiURL:
+          key: url
+          name: slack-webhook-url
+        channel: '#registration-service-notifications'
+        text: "Registration service is using too much CPU"
+
