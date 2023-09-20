@@ -21,15 +21,23 @@ spec:
       - alertname
     groupWait: 30s
     groupInterval: 5m
-    receiver: "slack-notification"
+    receiver: "null"
     repeatInterval: 12h
-    routes:
-      - receiver: "slack-notification"
-        repeatInterval: 1w
-        matchers:
-          - name: "alertname"
-            value: "RegistrationHighCPUUsage"
-            matchType: "=~"
+    matchers:
+      - name: "alertname"
+        value: "RegistrationHighCPUUsage"
+        matchType: "="
+    matchers:
+      - name: "severity"
+        value: "critical"
+        matchType: "=~"
+    # routes:
+    #   - receiver: "slack-notification"
+    #     repeatInterval: 1w
+    #     matchers:
+    #       - name: "alertname"
+    #         value: "RegistrationHighCPUUsage"
+    #         matchType: "=~"
   receivers:
   - name: 'slack-notification'
     slackConfigs:
