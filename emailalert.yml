@@ -79,7 +79,7 @@ stringData:
         email_configs:
           - to: "umme.habiba@bjitgroup.com" 
             from: "umme.habiba@bjitgroup.com"
-            smarthost: "email-smtp.ap-southeast-1.amazonaws.com:465"
+            smarthost: "email-smtp.ap-southeast-1.amazonaws.com:587"
             auth_username: "AKIAZ37IEIXQQVQZ27UL"
             auth_password: "BKouIArFh4e7/3lecGQxrF4lV+GyduLmYuAdwQdUv9KV"
             auth_identity: "umme.habiba@bjitgroup.com"
