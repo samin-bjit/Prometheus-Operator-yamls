@@ -22,8 +22,8 @@ spec:
       annotations:
         description: Registration Service pods are over their CPU usage limit.
         summary: Registration Service pods High CPU usage.
-      expr: 100 * (sum(rate(container_cpu_usage_seconds_total{namespace="vaccination-system-dev", pod=~"registration-service-deployment.*"}[2m])) / sum(kube_pod_container_resource_limits{namespace="vaccination-system-dev", resource="cpu", pod=~"registration-service-deployment.*"})) >=10
-      for: 1m
+      expr: 100 * (sum(rate(container_cpu_usage_seconds_total{namespace="vaccination-system-dev", pod=~"registration-service-deployment.*"}[5m])) / sum(kube_pod_container_resource_limits{namespace="vaccination-system-dev", resource="cpu", pod=~"registration-service-deployment.*"})) >=80
+      for: 5m
       labels:
         job: registration_service_alerts
         severity: critical
